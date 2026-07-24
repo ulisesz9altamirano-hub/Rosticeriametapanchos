@@ -1,4 +1,4 @@
-const PHONE_NUMBER = "5492615174897"; // Actualizado al del flyer: 261-5174897
+const PHONE_NUMBER = "2617111500";
 const DELIVERY_PRICE = 800;
 
 // Base de Datos Completa (Promos + Carta Individual)
