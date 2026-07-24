@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Panchos - Menú Digital</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-banner">
+        <h1>🔥 META PANCHOS 🔥</h1>
+        <p>~ MENÚ DIGITAL Y PROMOS ~</p>
+    </header>
+
+    <div class="container">
+        <!-- FILTROS DE CATEGORÍA -->
+        <div class="categories">
+            <button type="button" class="category-btn active" onclick="filterCategory('todos', this)">🔥 Todos</button>
+            <button type="button" class="category-btn" onclick="filterCategory('panchos', this)">🌭 Panchos</button>
+            <button type="button" class="category-btn" onclick="filterCategory('smash', this)">🍔 Smash Burgers</button>
+            <button type="button" class="category-btn" onclick="filterCategory('burgers', this)">🍔 Hamburguesas</button>
+            <button type="button" class="category-btn" onclick="filterCategory('lomos', this)">🥖 Lomos</button>
+            <button type="button" class="category-btn" onclick="filterCategory('pizzas', this)">🍕 Pizzas</button>
+            <button type="button" class="category-btn" onclick="filterCategory('papas', this)">🍟 Papas</button>
+            <button type="button" class="category-btn" onclick="filterCategory('agregados', this)">➕ Agregados</button>
+            <button type="button" class="category-btn" onclick="filterCategory('especiales', this)">⭐ Especiales</button>
+        </div>
+
+        <!-- SECCIÓN: PANCHOS -->
+        <section class="menu-section" data-category-section="panchos">
+            <h2 class="section-title">🌭 Panchos (Promos y Carta)</h2>
+            <div class="menu-grid">
+                <!-- Promos -->
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>4 Panchos con Lluvia de Papas</h3>
+                    <p>4 súper panchos tradicionales con lluvia de papas pay crocantes.</p>
+                    <div class="price">$7.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(1)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>4 Panchos con Lluvia y 2 Salsas</h3>
+                    <p>4 súper panchos con papas pay y 2 salsas a elección.</p>
+                    <div class="price">$9.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(2)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Súper Pancho Doble Poncho</h3>
+                    <p>Doble salchicha, dos salsas a elección y poncho de cheddar/papas.</p>
+                    <div class="price">$4.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(3)">➕ Agregar</button>
+                </div>
+                <!-- Menú Carta -->
+                <div class="card">
+                    <h3>Súper Pancho con Lluvia de Papas</h3>
+                    <p>Súper pancho con lluvia de papas pay.</p>
+                    <div class="price">$2.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(101)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Súper Pancho con 2 Salsas y Papas</h3>
+                    <p>Súper pancho con 2 salsas a elección y lluvia de papas.</p>
+                    <div class="price">$2.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(102)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Súper Pancho 50cm (2 Salsas y Papas)</h3>
+                    <p>Pancho gigante de 50cm con 2 salsas y lluvia de papas.</p>
+                    <div class="price">$6.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(103)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Pancho 50cm Doble Salchicha y Poncho</h3>
+                    <p>Pancho de 50cm con doble salchicha y poncho de cheddar.</p>
+                    <div class="price">$10.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(104)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Súper Pancho Por Metro</h3>
+                    <p>Pancho por metro completo con 2 salsas y lluvia de papas.</p>
+                    <div class="price">$11.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(105)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: SMASH BURGERS (PROMOS) -->
+        <section class="menu-section" data-category-section="smash">
+            <h2 class="section-title">🍔 Promos Smash Burgers</h2>
+            <div class="menu-grid">
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Meta Smash Simple + Papas C/B</h3>
+                    <p>2 hamburguesas Meta Smash Simple con papas de cheddar y bacon.</p>
+                    <div class="price">$16.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(4)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Meta Beicon Simple + Papas C/B</h3>
+                    <p>2 Meta Beicon Simple acompañadas con papas con cheddar y bacon.</p>
+                    <div class="price">$16.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(5)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Meta Beicon Doble + Papas C/B</h3>
+                    <p>2 Meta Beicon Doble con papas cheddar y bacon.</p>
+                    <div class="price">$20.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(6)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Monster Smash Doble + Papas C/B</h3>
+                    <p>2 Monster Smash Doble con papas cargadas de cheddar y bacon.</p>
+                    <div class="price">$21.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(7)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Meta Beicon Triple + Papas C/B</h3>
+                    <p>2 Meta Beicon Triple con papas cheddar y bacon.</p>
+                    <div class="price">$24.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(8)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Monster Smash Triple + Papas C/B</h3>
+                    <p>2 Monster Smash Triple con papas cheddar y bacon.</p>
+                    <div class="price">$25.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(9)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: HAMBURGUESAS CARTA -->
+        <section class="menu-section" data-category-section="burgers">
+            <h2 class="section-title">🍔 Hamburguesas Tradicionales</h2>
+            <div class="menu-grid">
+                <div class="card">
+                    <h3>Súper Hamburguesa</h3>
+                    <p>Carne molida de primera, jamón, queso, huevo, lechuga y tomate.</p>
+                    <div class="price">$9.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(106)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Big Mamma</h3>
+                    <p>Doble carne, cheddar, lechuga, tomate, jamón, queso, huevo, beicon y salsa cheddar.</p>
+                    <div class="price">$15.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(107)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LOMOS -->
+        <section class="menu-section" data-category-section="lomos">
+            <h2 class="section-title">🥖 Lomos (Promos y Carta)</h2>
+            <div class="menu-grid">
+                <!-- Carta -->
+                <div class="card">
+                    <h3>Lomo de 30 cm</h3>
+                    <p>Carne de lomo, lechuga, tomate, jamón, queso y huevo.</p>
+                    <div class="price">$13.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(108)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Lomo de 50 cm</h3>
+                    <p>Carne de lomo, lechuga, tomate, jamón, queso y huevo.</p>
+                    <div class="price">$23.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(109)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Lomo Por 1 Metro</h3>
+                    <p>Carne de lomo, lechuga, tomate, jamón, queso y huevo.</p>
+                    <div class="price">$42.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(110)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Lomo Pizza Especial</h3>
+                    <p>Carne de lomo, dos muzzarellas, lechuga, tomate, jamón, huevo y morrones.</p>
+                    <div class="price">$30.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(111)">➕ Agregar</button>
+                </div>
+                <!-- Promos -->
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Lomo de 30cm con Papas</h3>
+                    <p>Lomo gigante de 30cm acompañado con porción de papas fritas.</p>
+                    <div class="price">$16.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(10)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Lomo de 50cm con Papas</h3>
+                    <p>Lomo de 50cm para compartir con papas fritas bastón.</p>
+                    <div class="price">$26.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(11)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Lomo Por Metro con Papas</h3>
+                    <p>1 Metro entero de lomo completo con abundante porción de papas.</p>
+                    <div class="price">$46.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(12)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Lomo 50cm + Papas + Gaseosa 2.25L</h3>
+                    <p>Lomo de 50cm con papas y 1 Pepsi o Seven Up de 2,25L retornable.</p>
+                    <div class="price">$29.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(13)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PIZZAS -->
+        <section class="menu-section" data-category-section="pizzas">
+            <h2 class="section-title">🍕 Pizzas (Promos y Carta)</h2>
+            <div class="menu-grid">
+                <!-- Carta -->
+                <div class="card">
+                    <h3>Pizza Muzzarella</h3>
+                    <p>Muzzarella y aceitunas.</p>
+                    <div class="price">$7.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(112)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Pizza Doble Muzzarella</h3>
+                    <p>Doble porción de muzzarella con aceitunas.</p>
+                    <div class="price">$8.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(113)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Pizza Especial</h3>
+                    <p>Jamón y aceitunas / Huevo y aceitunas.</p>
+                    <div class="price">$8.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(114)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Pizza Fugazza</h3>
+                    <p>Cebolla, muzzarella y aceitunas.</p>
+                    <div class="price">$8.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(115)">➕ Agregar</button>
+                </div>
+                <!-- Promos -->
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Pizzas Muzzarellas</h3>
+                    <p>2 Pizzas grandes de muzzarella con aceitunas.</p>
+                    <div class="price">$12.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(14)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>3 Pizzas Muzzarellas</h3>
+                    <p>Combo de 3 pizzas grandes de muzzarella.</p>
+                    <div class="price">$18.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(15)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Pizzas Especiales</h3>
+                    <p>2 Pizzas especiales con jamón y muzzarella.</p>
+                    <div class="price">$15.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(16)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>3 Pizzas Especiales</h3>
+                    <p>3 Pizzas especiales con jamón y abundante muzzarella.</p>
+                    <div class="price">$22.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(17)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PAPAS -->
+        <section class="menu-section" data-category-section="papas">
+            <h2 class="section-title">🍟 Porciones de Papas</h2>
+            <div class="menu-grid">
+                <div class="card">
+                    <h3>Porción de Papas Grandes</h3>
+                    <p>Papas fritas bastón porción grande.</p>
+                    <div class="price">$4.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(116)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Porción de Papas Grandes con Cheddar</h3>
+                    <p>Papas fritas bastón grandes bañadas en queso cheddar.</p>
+                    <div class="price">$6.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(117)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Salchipapa</h3>
+                    <p>Porción de papas fritas con salchichas cortadas.</p>
+                    <div class="price">$6.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(118)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: AGREGADOS -->
+        <section class="menu-section" data-category-section="agregados">
+            <h2 class="section-title">➕ Agregados</h2>
+            <div class="menu-grid">
+                <div class="card">
+                    <h3>Agregado: Doble Salchicha</h3>
+                    <p>Extra doble salchicha para tus panchos.</p>
+                    <div class="price">$1.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(119)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Agregado: Poncho</h3>
+                    <p>Poncho de queso cheddar/papas pay.</p>
+                    <div class="price">$1.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(120)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <h3>Agregado: Cheddar Extra</h3>
+                    <p>Extra baño de queso cheddar casero.</p>
+                    <div class="price">$3.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(121)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: ESPECIALES (PROMOS COMBOS) -->
+        <section class="menu-section" data-category-section="especiales">
+            <h2 class="section-title">⭐ Combos Especiales</h2>
+            <div class="menu-grid">
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>1 Pancho c/ Papas + Lata Coca</h3>
+                    <p>1 Pancho con lluvia de papas y 1 lata de Coca-Cola.</p>
+                    <div class="price">$3.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(18)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>1 Pancho 2 Salsas/Papas + Lata Coca</h3>
+                    <p>1 Pancho con 2 salsas, papas pay y 1 lata de Coca-Cola.</p>
+                    <div class="price">$4.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(19)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Panchos con 2 Salsas + 2 Latas</h3>
+                    <p>2 Panchos completos con 2 salsas y 2 latas de gaseosa.</p>
+                    <div class="price">$8.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(20)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>2 Meta Smash Simple + Papas + 2 Latas</h3>
+                    <p>2 Hamburguesas simples con papas y 2 latas de gaseosa.</p>
+                    <div class="price">$20.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(21)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>3 Pizzas Muzzarella + 1 Pepsi</h3>
+                    <p>3 Pizzas Muzzarella y 1 gaseosa Pepsi.</p>
+                    <div class="price">$21.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(22)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>Lomopizza Especial con Papas</h3>
+                    <p>Lomopizza especial acompañado de papas fritas.</p>
+                    <div class="price">$34.000</div>
+                    <button type="button" class="add-btn" onclick="addToCart(23)">➕ Agregar</button>
+                </div>
+                <div class="card promo-card">
+                    <span class="badge">PROMO</span>
+                    <h3>1 Lomopizza con Papas + Coca</h3>
+                    <p>1 Lomopizza con papas fritas y Coca-Cola.</p>
+                    <div class="price">$38.500</div>
+                    <button type="button" class="add-btn" onclick="addToCart(24)">➕ Agregar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- BARRA INFERIOR DE COMANDA -->
+    <div class="cart-bar">
+        <div class="cart-info">
+            Comanda: <span id="barCount">0</span> | Total: <span id="barTotal">$0</span>
+        </div>
+        <button type="button" class="open-cart-btn" onclick="toggleModal(true)">📋 Ver Comanda</button>
+    </div>
+
+    <!-- MODAL COMANDA DE PEDIDO -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button type="button" class="close-btn" onclick="toggleModal(false)">&times;</button>
+            <div class="modal-header">
+                <h2>🔥 META PANCHOS 🔥</h2>
+                <p>--- COMANDA DIGITAL ---</p>
+            </div>
+            
+            <div id="comandaItemsList"></div>
+
+            <div class="delivery-options">
+                <label class="input-label">👤 Tu Nombre:</label>
+                <input type="text" id="clientName" class="input-field" placeholder="Ej: Juan Pérez">
+                
+                <div class="modal-field-group">
+                    <label class="input-label">📍 Modalidad:</label>
+                    <div class="option-group">
+                        <label><input type="radio" name="deliveryType" value="retiro" checked onchange="updateDeliveryUI()"> 🛍️ Retiro</label>
+                        <label><input type="radio" name="deliveryType" value="delivery" onchange="updateDeliveryUI()"> 🛵 Delivery (+$800)</label>
+                    </div>
+                </div>
+
+                <div id="addressSection" class="address-section">
+                    <label class="input-label">🏠 Dirección:</label>
+                    <input type="text" id="addressInput" class="input-field" placeholder="Calle y altura">
+                </div>
+            </div>
+
+            <div class="total-summary">
+                <p>Subtotal: <span id="subtotalText">$0</span></p>
+                <p id="deliveryRow" class="delivery-row">Envío: <span>$800</span></p>
+                <div class="grand-total">TOTAL: <span id="totalText">$0</span></div>
+            </div>
+
+            <button type="button" class="send-order-btn" onclick="sendWhatsAppOrder()">📲 Enviar Pedido por WhatsApp</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
