@@ -44,14 +44,14 @@
                     <h3>4 Panchos con Lluvia y 2 Salsas</h3>
                     <p>4 súper panchos con papas pay y 2 salsas a elección.</p>
                     <div class="price">$9.500</div>
-                    <button type="button" class="add-btn" onclick="addToCart(2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(2, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>Súper Pancho Doble Poncho</h3>
                     <p>Doble salchicha, dos salsas a elección y poncho de cheddar/papas.</p>
                     <div class="price">$4.500</div>
-                    <button type="button" class="add-btn" onclick="addToCart(3)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(3, 2)">➕ Agregar</button>
                 </div>
                 <!-- Menú Carta -->
                 <div class="card">
@@ -64,13 +64,13 @@
                     <h3>Súper Pancho con 2 Salsas y Papas</h3>
                     <p>Súper pancho con 2 salsas a elección y lluvia de papas.</p>
                     <div class="price">$2.500</div>
-                    <button type="button" class="add-btn" onclick="addToCart(102)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(102, 2)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Súper Pancho 50cm (2 Salsas y Papas)</h3>
                     <p>Pancho gigante de 50cm con 2 salsas y lluvia de papas.</p>
                     <div class="price">$6.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(103)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(103, 2)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Pancho 50cm Doble Salchicha y Poncho</h3>
@@ -82,7 +82,7 @@
                     <h3>Súper Pancho Por Metro</h3>
                     <p>Pancho por metro completo con 2 salsas y lluvia de papas.</p>
                     <div class="price">$11.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(105)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(105, 2)">➕ Agregar</button>
                 </div>
             </div>
         </section>
@@ -343,14 +343,14 @@
                     <h3>1 Pancho 2 Salsas/Papas + Lata Coca</h3>
                     <p>1 Pancho con 2 salsas, papas pay y 1 lata de Coca-Cola.</p>
                     <div class="price">$4.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(19)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(19, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Panchos con 2 Salsas + 2 Latas</h3>
                     <p>2 Panchos completos con 2 salsas y 2 latas de gaseosa.</p>
                     <div class="price">$8.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(20)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceModal(20, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
@@ -390,6 +390,48 @@
             Comanda: <span id="barCount">0</span> | Total: <span id="barTotal">$0</span>
         </div>
         <button type="button" class="open-cart-btn" onclick="toggleModal(true)">📋 Ver Comanda</button>
+    </div>
+
+    <!-- MODAL PARA SELECCIONAR SALSAS -->
+    <div class="modal" id="sauceModal">
+        <div class="modal-content sauce-modal-content">
+            <button type="button" class="close-btn" onclick="closeSauceModal()">&times;</button>
+            <div class="modal-header">
+                <h2>🌭 Elegí tus Salsas</h2>
+                <p id="sauceModalSubtitle">Selecciona hasta <span id="maxSaucesCount">2</span> salsas</p>
+            </div>
+
+            <div class="sauces-grid" id="saucesOptionsList">
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Barbacoa" onchange="checkSauceLimit()"> Barbacoa
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Cheddar" onchange="checkSauceLimit()"> Cheddar
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Huevo Picado" onchange="checkSauceLimit()"> Huevo Picado
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Palta" onchange="checkSauceLimit()"> Palta
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Criolla" onchange="checkSauceLimit()"> Criolla
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Mayo de ajo" onchange="checkSauceLimit()"> Mayo de ajo
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="4 Quesos" onchange="checkSauceLimit()"> 4 Quesos
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Cebolla caramelizada" onchange="checkSauceLimit()"> Cebolla caramelizada
+                </label>
+            </div>
+            
+            <div class="sauce-action">
+                <button type="button" class="confirm-sauce-btn" onclick="confirmSauceSelection()">Confirmar y Agregar</button>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL COMANDA DE PEDIDO -->
