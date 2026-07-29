@@ -499,6 +499,18 @@
 
             <div class="sauces-grid" id="saucesOptionsList">
                 <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Mostaza" onchange="checkSauceLimit()"> Mostaza
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Salsa golf" onchange="checkSauceLimit()"> Salsa golf
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Ketchup" onchange="checkSauceLimit()"> Ketchup
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" name="sauce" value="Mayonesa" onchange="checkSauceLimit()"> Mayonesa
+                </label>
+                <label class="sauce-option">
                     <input type="checkbox" name="sauce" value="Barbacoa" onchange="checkSauceLimit()"> Barbacoa
                 </label>
                 <label class="sauce-option">
@@ -531,54 +543,23 @@
     </div>
 
     <!-- MODAL SELECCIÓN DE INGREDIENTES PARA BURGERS -->
-    <div class="modal" id="burgerIngredientsModal">
-        <div class="modal-content sauce-modal-content">
-            <button type="button" class="close-btn" onclick="closeBurgerModal()">&times;</button>
-            <div class="modal-header">
-                <h3>Personalizá tu Smash Burger 🍔</h3>
-                <div class="step-indicator" id="burgerStepIndicator" style="display: none;">Hamburguesa 1 de 2</div>
-                <p class="modal-subtitle">Seleccioná o desmarcá los ingredientes de tu hamburguesa:</p>
-            </div>
+<div class="modal" id="burgerIngredientsModal">
+    <div class="modal-content sauce-modal-content">
+        <button type="button" class="close-btn" onclick="closeBurgerModal()">&times;</button>
+        <div class="modal-header">
+            <h3 id="burgerModalTitle">Personalizá tu Smash Burger 🍔</h3>
+            <div class="step-indicator" id="burgerStepIndicator" style="display: none;">Hamburguesa 1 de 2</div>
+            <p class="modal-subtitle">Seleccioná o desmarcá los ingredientes de tu hamburguesa:</p>
+        </div>
 
-            <div class="sauces-grid" id="burgerIngredientsOptionsList">
-                <label class="sauce-option">
-                    <input type="checkbox" value="Cheddar / Queso"> Queso / Cheddar
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Barbacoa"> Barbacoa
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Beicon"> Beicon (Bacon)
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Cebolla Caramelizada"> Cebolla Caramelizada
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Lechuga"> Lechuga
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Tomate"> Tomate
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Jamón"> Jamón
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Huevo"> Huevo
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Palta"> Palta
-                </label>
-                <label class="sauce-option">
-                    <input type="checkbox" value="Pan de Papa"> Pan de Papa
-                </label>
-            </div>
+        <!-- Contenedor vacío donde se renderizan los checkboxes -->
+        <div class="sauces-grid" id="burgerIngredientsOptionsList"></div>
 
-            <div class="sauce-action" style="margin-top: 15px;">
-                <button type="button" id="confirmBurgerBtn" class="confirm-sauce-btn" onclick="confirmBurgerStep()">✔ Agregar al Carrito</button>
-            </div>
+        <div class="sauce-action" style="margin-top: 15px;">
+            <button type="button" id="confirmBurgerBtn" class="confirm-sauce-btn" onclick="confirmBurgerStep()">✔ Agregar al Carrito</button>
         </div>
     </div>
-
+</div>
     <!-- MODAL COMANDA DE PEDIDO -->
     <div class="modal" id="orderModal">
         <div class="modal-content">

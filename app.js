@@ -358,9 +358,21 @@ function confirmSauceStep() {
     }
 }
 
-/// ==========================================
-// 4. WIZARD DE INGREDIENTES PARA BURGERS
 // ==========================================
+// 4. WIZARD DE INGREDIENTES PARA BURGERS (DINÁMICO)
+// ==========================================
+
+// Mapeo auxiliar para conocer la composición exacta de hamburguesas en las promos de 2 unidades
+const BURGER_PROMO_COMPOSITION = {
+    4: [56, 56], // 2 Meta Smash Simple
+    5: [50, 50], // 2 Meta Beicon Simple
+    6: [51, 51], // 2 Meta Beicon Doble
+    7: [60, 60], // 2 Monster Smash Doble
+    8: [52, 52], // 2 Meta Beicon Triple
+    9: [61, 61], // 2 Monster Smash Triple
+    21: [56, 56] // 2 Meta Smash Simple + Papas + 2 Latas
+};
+
 function openBurgerWizard(productId, totalItemsCount = 1) {
     const modal = document.getElementById('burgerIngredientsModal');
     if (!modal) {
@@ -378,7 +390,7 @@ function openBurgerWizard(productId, totalItemsCount = 1) {
 
     updateBurgerWizardStepUI();
 
-    // Forzamos el display a flex para mostrar el modal
+    // Mostrar el modal
     modal.style.display = 'flex';
 }
 
@@ -386,7 +398,24 @@ function updateBurgerWizardStepUI() {
     const stepIndicator = document.getElementById('burgerStepIndicator');
     const confirmBtn = document.getElementById('confirmBurgerBtn');
     const optionsList = document.getElementById('burgerIngredientsOptionsList');
+    const modalTitle = document.querySelector('#burgerIngredientsModal .modal-header h3');
 
+    // 1. Determinar de qué hamburguesa específica debemos cargar ingredientes en este paso
+    let currentBurgerId = burgerWizardState.productId;
+    
+    if (burgerWizardState.totalItemsCount > 1 && BURGER_PROMO_COMPOSITION[burgerWizardState.productId]) {
+        const promoList = BURGER_PROMO_COMPOSITION[burgerWizardState.productId];
+        currentBurgerId = promoList[burgerWizardState.currentItemStep - 1] || burgerWizardState.productId;
+    }
+
+    const currentProductObj = PRODUCTS[currentBurgerId] || PRODUCTS[burgerWizardState.productId];
+
+    // 2. Actualizar Título
+    if (modalTitle && currentProductObj) {
+        modalTitle.innerText = `Personalizá tu ${currentProductObj.name} 🍔`;
+    }
+
+    // 3. Actualizar Indicador de Pasos
     if (stepIndicator) {
         if (burgerWizardState.totalItemsCount > 1) {
             stepIndicator.innerText = `Hamburguesa ${burgerWizardState.currentItemStep} de ${burgerWizardState.totalItemsCount}`;
@@ -396,6 +425,7 @@ function updateBurgerWizardStepUI() {
         }
     }
 
+    // 4. Actualizar Botón
     if (confirmBtn) {
         if (burgerWizardState.currentItemStep < burgerWizardState.totalItemsCount) {
             confirmBtn.innerText = 'Siguiente Hamburguesa ➔';
@@ -404,12 +434,24 @@ function updateBurgerWizardStepUI() {
         }
     }
 
+    // 5. Renderizar dinámicamente los Checkboxes
     if (optionsList) {
-        const baseIngredients = BURGER_BASE_INGREDIENTS[burgerWizardState.productId] || [];
-        const checkboxes = optionsList.querySelectorAll('input[type="checkbox"]');
+        optionsList.innerHTML = ''; // Limpiamos opciones previas
+        
+        const baseIngredients = BURGER_BASE_INGREDIENTS[currentBurgerId] || [];
 
-        checkboxes.forEach(cb => {
-            cb.checked = baseIngredients.includes(cb.value);
+        if (baseIngredients.length === 0) {
+            optionsList.innerHTML = '<p style="color: #666; font-size: 0.9em;">Esta opción no posee ingredientes personalizables.</p>';
+            return;
+        }
+
+        baseIngredients.forEach(ingredient => {
+            const label = document.createElement('label');
+            label.className = 'sauce-option';
+            label.innerHTML = `
+                <input type="checkbox" value="${ingredient}" checked> ${ingredient}
+            `;
+            optionsList.appendChild(label);
         });
     }
 }
