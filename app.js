@@ -1,7 +1,7 @@
 // ==========================================
 // CONFIGURACIÓN Y ESTADO DE LA APLICACIÓN
 // ==========================================
-const PHONE_NUMBER = "2617111500"; // Número de WhatsApp (con código de país)
+const PHONE_NUMBER = "2615174897"; // Número de WhatsApp (con código de país)
 const DELIVERY_COST_TEXT = "Consultar Envió"; // Texto para el costo de envío
 const DELIVERY_COST = 0; // Valor numérico para cálculos internos
 
@@ -16,7 +16,7 @@ const PRODUCTS = {
     101: { id: 101, name: "Súper Pancho con Lluvia de Papas", price: 2000 },
     102: { id: 102, name: "Súper Pancho con 2 Salsas y Papas", price: 2500 },
     103: { id: 103, name: "Súper Pancho 50cm (2 Salsas y Papas)", price: 6000 },
-    104: { id: 104, name: "Pancho 50cm Doble Salchicha y Poncho", price: 10000 },
+    104: { id: 104, name: "Pancho 50cm Doble Salchicha, doble salsa y Poncho", price: 10000 },
     105: { id: 105, name: "Súper Pancho Por Metro", price: 11000 },
 
     // Smash Burgers (Individuales)
@@ -90,7 +90,7 @@ const PRODUCTS = {
 
 // Clasificación de aderezos y salsas
 const BASIC_ADEREZOS = ["Mayonesa", "Kétchup", "Mostaza", "Salsa Golf"];
-const SPECIAL_SAUCES = ["Mayonesa Ajo", "Barbacoa", "Queso Cheddar", "Queso Roquefort", "Cebolla caramelizada", "Palta", "4 Quesos", "Criolla", "Huevo picado"];
+const SPECIAL_SAUCES = ["Mayonesa Ajo", "Barbacoa", "Queso Cheddar", "Cebolla caramelizada", "Palta", "4 Quesos", "Criolla", "Huevo picado"];
 
 // Map de ingredientes base según cada producto / promo de Hamburguesas
 const BURGER_BASE_INGREDIENTS = {
