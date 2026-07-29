@@ -42,16 +42,16 @@
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>4 Panchos con Lluvia y 2 Salsas</h3>
-                    <p>4 súper panchos con papas pay y 2 salsas a elección.</p>
+                    <p>4 súper panchos con papas pay y 2 salsas a elección por pancho.</p>
                     <div class="price">$9.500</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(2, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(2, 2, 4)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>Súper Pancho Doble Poncho</h3>
                     <p>Doble salchicha, dos salsas a elección y poncho de cheddar/papas.</p>
                     <div class="price">$4.500</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(3, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(3, 2, 1)">➕ Agregar</button>
                 </div>
                 <!-- Menú Carta -->
                 <div class="card">
@@ -64,13 +64,13 @@
                     <h3>Súper Pancho con 2 Salsas y Papas</h3>
                     <p>Súper pancho con 2 salsas a elección y lluvia de papas.</p>
                     <div class="price">$2.500</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(102, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(102, 2, 1)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Súper Pancho 50cm (2 Salsas y Papas)</h3>
                     <p>Pancho gigante de 50cm con 2 salsas y lluvia de papas.</p>
                     <div class="price">$6.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(103, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(103, 2, 1)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Pancho 50cm Doble Salchicha y Poncho</h3>
@@ -82,57 +82,152 @@
                     <h3>Súper Pancho Por Metro</h3>
                     <p>Pancho por metro completo con 2 salsas y lluvia de papas.</p>
                     <div class="price">$11.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(105, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(105, 2, 1)">➕ Agregar</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN: SMASH BURGERS (PROMOS) -->
+        <!-- SECCIÓN: SMASH BURGERS -->
         <section class="menu-section" data-category-section="smash">
-            <h2 class="section-title">🍔 Promos Smash Burgers</h2>
+            <h2 class="section-title">🍔 Smash Burgers (Individuales y Promos)</h2>
             <div class="menu-grid">
+
+                <!-- META BEICON -->
+                <div class="card">
+                    <span class="badge badge-smash">SIMPLE</span>
+                    <h3>Meta Beicon Simple</h3>
+                    <p>Carne, cheddar, barbacoa, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$6.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(50, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">DOBLE</span>
+                    <h3>Meta Beicon Doble</h3>
+                    <p>Carne, cheddar, barbacoa, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$8.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(51, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">TRIPLE</span>
+                    <h3>Meta Beicon Triple</h3>
+                    <p>Carne, cheddar, barbacoa, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$10.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(52, 1)">➕ Agregar</button>
+                </div>
+
+                <!-- META BBQ -->
+                <div class="card">
+                    <span class="badge badge-smash">SIMPLE</span>
+                    <h3>Meta BBQ Simple</h3>
+                    <p>Carne, barbacoa, lechuga, tomate y pan de papa.</p>
+                    <div class="price">$5.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(53, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">DOBLE</span>
+                    <h3>Meta BBQ Doble</h3>
+                    <p>Carne, barbacoa, lechuga, tomate y pan de papa.</p>
+                    <div class="price">$7.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(54, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">TRIPLE</span>
+                    <h3>Meta BBQ Triple</h3>
+                    <p>Carne, barbacoa, lechuga, tomate y pan de papa.</p>
+                    <div class="price">$9.000</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(55, 1)">➕ Agregar</button>
+                </div>
+
+                <!-- META SMASH -->
+                <div class="card">
+                    <span class="badge badge-smash">SIMPLE</span>
+                    <h3>Meta Smash Simple</h3>
+                    <p>Carne, barbacoa, lechuga, tomate, jamón, queso, huevo y pan de papa.</p>
+                    <div class="price">$6.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(56, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">DOBLE</span>
+                    <h3>Meta Smash Doble</h3>
+                    <p>Carne, barbacoa, lechuga, tomate, jamón, queso, huevo y pan de papa.</p>
+                    <div class="price">$8.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(57, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">TRIPLE</span>
+                    <h3>Meta Smash Triple</h3>
+                    <p>Carne, barbacoa, lechuga, tomate, jamón, queso, huevo y pan de papa.</p>
+                    <div class="price">$10.000</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(58, 1)">➕ Agregar</button>
+                </div>
+
+                <!-- MONSTER SMASH -->
+                <div class="card">
+                    <span class="badge badge-smash">SIMPLE</span>
+                    <h3>Monster Smash Simple</h3>
+                    <p>Carne, cheddar, barbacoa, palta, lechuga, tomate, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$7.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(59, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">DOBLE</span>
+                    <h3>Monster Smash Doble</h3>
+                    <p>Carne, cheddar, barbacoa, palta, lechuga, tomate, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$9.500</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(60, 1)">➕ Agregar</button>
+                </div>
+                <div class="card">
+                    <span class="badge badge-smash">TRIPLE</span>
+                    <h3>Monster Smash Triple</h3>
+                    <p>Carne, cheddar, barbacoa, palta, lechuga, tomate, beicon, cebolla caramelizada y pan de papa.</p>
+                    <div class="price">$11.000</div>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(61, 1)">➕ Agregar</button>
+                </div>
+
+                <!-- PROMOS SMASH (2 Hamburguesas por Promo) -->
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Meta Smash Simple + Papas C/B</h3>
                     <p>2 hamburguesas Meta Smash Simple con papas de cheddar y bacon.</p>
                     <div class="price">$16.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(4)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(4, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Meta Beicon Simple + Papas C/B</h3>
                     <p>2 Meta Beicon Simple acompañadas con papas con cheddar y bacon.</p>
                     <div class="price">$16.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(5)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(5, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Meta Beicon Doble + Papas C/B</h3>
                     <p>2 Meta Beicon Doble con papas cheddar y bacon.</p>
                     <div class="price">$20.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(6)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(6, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Monster Smash Doble + Papas C/B</h3>
                     <p>2 Monster Smash Doble con papas cargadas de cheddar y bacon.</p>
                     <div class="price">$21.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(7)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(7, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Meta Beicon Triple + Papas C/B</h3>
                     <p>2 Meta Beicon Triple con papas cheddar y bacon.</p>
                     <div class="price">$24.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(8)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(8, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Monster Smash Triple + Papas C/B</h3>
                     <p>2 Monster Smash Triple con papas cheddar y bacon.</p>
                     <div class="price">$25.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(9)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(9, 2)">➕ Agregar</button>
                 </div>
+
             </div>
         </section>
 
@@ -144,13 +239,13 @@
                     <h3>Súper Hamburguesa</h3>
                     <p>Carne molida de primera, jamón, queso, huevo, lechuga y tomate.</p>
                     <div class="price">$9.500</div>
-                    <button type="button" class="add-btn" onclick="addToCart(106)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(106, 1)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Big Mamma</h3>
                     <p>Doble carne, cheddar, lechuga, tomate, jamón, queso, huevo, beicon y salsa cheddar.</p>
                     <div class="price">$15.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(107)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(107, 1)">➕ Agregar</button>
                 </div>
             </div>
         </section>
@@ -343,21 +438,21 @@
                     <h3>1 Pancho 2 Salsas/Papas + Lata Coca</h3>
                     <p>1 Pancho con 2 salsas, papas pay y 1 lata de Coca-Cola.</p>
                     <div class="price">$4.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(19, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(19, 2, 1)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Panchos con 2 Salsas + 2 Latas</h3>
-                    <p>2 Panchos completos con 2 salsas y 2 latas de gaseosa.</p>
+                    <p>2 Panchos completos con 2 salsas por pancho y 2 latas de gaseosa.</p>
                     <div class="price">$8.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceModal(20, 2)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(20, 2, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>2 Meta Smash Simple + Papas + 2 Latas</h3>
                     <p>2 Hamburguesas simples con papas y 2 latas de gaseosa.</p>
                     <div class="price">$20.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(21)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openBurgerWizard(21, 2)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
@@ -392,12 +487,13 @@
         <button type="button" class="open-cart-btn" onclick="toggleModal(true)">📋 Ver Comanda</button>
     </div>
 
-    <!-- MODAL PARA SELECCIONAR SALSAS -->
+    <!-- MODAL DE SELECCIÓN DE SALSAS (WIZARD PASO A PASO) -->
     <div class="modal" id="sauceModal">
         <div class="modal-content sauce-modal-content">
             <button type="button" class="close-btn" onclick="closeSauceModal()">&times;</button>
             <div class="modal-header">
-                <h2>🌭 Elegí tus Salsas</h2>
+                <h2 id="sauceModalTitle">🌭 Elegí tus Salsas</h2>
+                <div class="step-indicator" id="stepIndicator">Pancho 1 de 4</div>
                 <p id="sauceModalSubtitle">Selecciona hasta <span id="maxSaucesCount">2</span> salsas</p>
             </div>
 
@@ -429,7 +525,56 @@
             </div>
             
             <div class="sauce-action">
-                <button type="button" class="confirm-sauce-btn" onclick="confirmSauceSelection()">Confirmar y Agregar</button>
+                <button type="button" id="confirmSauceBtn" class="confirm-sauce-btn" onclick="confirmSauceStep()">Siguiente Pancho ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SELECCIÓN DE INGREDIENTES PARA BURGERS -->
+    <div class="modal" id="burgerIngredientsModal">
+        <div class="modal-content sauce-modal-content">
+            <button type="button" class="close-btn" onclick="closeBurgerModal()">&times;</button>
+            <div class="modal-header">
+                <h3>Personalizá tu Smash Burger 🍔</h3>
+                <div class="step-indicator" id="burgerStepIndicator" style="display: none;">Hamburguesa 1 de 2</div>
+                <p class="modal-subtitle">Seleccioná o desmarcá los ingredientes de tu hamburguesa:</p>
+            </div>
+
+            <div class="sauces-grid" id="burgerIngredientsOptionsList">
+                <label class="sauce-option">
+                    <input type="checkbox" value="Cheddar / Queso"> Queso / Cheddar
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Barbacoa"> Barbacoa
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Beicon"> Beicon (Bacon)
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Cebolla Caramelizada"> Cebolla Caramelizada
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Lechuga"> Lechuga
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Tomate"> Tomate
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Jamón"> Jamón
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Huevo"> Huevo
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Palta"> Palta
+                </label>
+                <label class="sauce-option">
+                    <input type="checkbox" value="Pan de Papa"> Pan de Papa
+                </label>
+            </div>
+
+            <div class="sauce-action" style="margin-top: 15px;">
+                <button type="button" id="confirmBurgerBtn" class="confirm-sauce-btn" onclick="confirmBurgerStep()">✔ Agregar al Carrito</button>
             </div>
         </div>
     </div>
@@ -476,7 +621,7 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="brand-credit">
-               <a href="https://ibb.co/vCvCbxhk"><img src="https://i.ibb.co/vCvCbxhk/Whats-App-Image-2026-06-26-at-14-13-39.jpg" alt="Whats-App-Image-2026-06-26-at-14-13-39" border="0"></a>
+               <a href="https://ibb.co/vCvCbxhk" target="_blank"><img src="https://i.ibb.co/vCvCbxhk/Whats-App-Image-2026-06-26-at-14-13-39.jpg" alt="Logo Malardos" border="0"></a>
                 <span> Trabajo realizado por Malardos coding club</span>
             </div>
             <p class="copyright">

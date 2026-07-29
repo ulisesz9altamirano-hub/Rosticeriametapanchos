@@ -1,10 +1,10 @@
 // ==========================================
 // CONFIGURACIÓN Y ESTADO DE LA APLICACIÓN
 // ==========================================
-const PHONE_NUMBER = "2617111500"; // ⚠️ Cambia este número por el WhatsApp de Meta Panchos (con código de país)
+const PHONE_NUMBER = "2617111500"; // Número de WhatsApp (con código de país)
 const DELIVERY_COST = 800;
 
-// Base de datos de productos mapeada directamente con los IDs del HTML
+// Base de datos de productos
 const PRODUCTS = {
     // Promos Panchos
     1: { id: 1, name: "4 Panchos con Lluvia de Papas", price: 7500 },
@@ -17,6 +17,23 @@ const PRODUCTS = {
     103: { id: 103, name: "Súper Pancho 50cm (2 Salsas y Papas)", price: 6000 },
     104: { id: 104, name: "Pancho 50cm Doble Salchicha y Poncho", price: 10000 },
     105: { id: 105, name: "Súper Pancho Por Metro", price: 11000 },
+
+    // Smash Burgers (Individuales)
+    50: { id: 50, name: "Meta Beicon Simple", price: 6500 },
+    51: { id: 51, name: "Meta Beicon Doble", price: 8500 },
+    52: { id: 52, name: "Meta Beicon Triple", price: 10500 },
+
+    53: { id: 53, name: "Meta BBQ Simple", price: 5500 },
+    54: { id: 54, name: "Meta BBQ Doble", price: 7500 },
+    55: { id: 55, name: "Meta BBQ Triple", price: 9000 },
+
+    56: { id: 56, name: "Meta Smash Simple", price: 6500 },
+    57: { id: 57, name: "Meta Smash Doble", price: 8500 },
+    58: { id: 58, name: "Meta Smash Triple", price: 10000 },
+
+    59: { id: 59, name: "Monster Smash Simple", price: 7500 },
+    60: { id: 60, name: "Monster Smash Doble", price: 9500 },
+    61: { id: 61, name: "Monster Smash Triple", price: 11000 },
 
     // Smash Burgers (Promos)
     4: { id: 4, name: "2 Meta Smash Simple + Papas C/B", price: 16000 },
@@ -56,7 +73,7 @@ const PRODUCTS = {
     118: { id: 118, name: "Salchipapa", price: 6000 },
 
     // Agregados
-    119: { id: 119, name: "Agregado: Doble Salchicha", price: 10000 },
+    119: { id: 119, name: "Agregado: Doble Salchicha", price: 1000 },
     120: { id: 120, name: "Agregado: Poncho", price: 1000 },
     121: { id: 121, name: "Agregado: Cheddar Extra", price: 3000 },
 
@@ -70,11 +87,62 @@ const PRODUCTS = {
     24: { id: 24, name: "1 Lomopizza con Papas + Coca", price: 38500 }
 };
 
-let cart = [];
-let pendingSauceProductId = null;
-let maxAllowedSauces = 2;
+// Map de ingredientes base según cada producto / promo
+const BURGER_BASE_INGREDIENTS = {
+    // META BEICON (Simple, Doble, Triple)
+    50: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    51: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    52: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
 
-// Formateador de moneda en pesos argentinos
+    // META BBQ (Simple, Doble, Triple)
+    53: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
+    54: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
+    55: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
+
+    // META SMASH (Simple, Doble, Triple)
+    56: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
+    57: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
+    58: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
+
+    // MONSTER SMASH (Simple, Doble, Triple)
+    59: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    60: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    61: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+
+    // PROMOS SMASH (2 Unidades por Promo)
+    4: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"], // Meta Smash Simple
+    5: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Simple
+    6: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Doble
+    7: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Monster Doble
+    8: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Triple
+    9: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Monster Triple
+    21: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"], // 2 Meta Smash + Papas + 2 Latas
+
+    // Hamburguesas Tradicionales
+    106: ["Jamón", "Cheddar / Queso", "Huevo", "Lechuga", "Tomate"],
+    107: ["Cheddar / Queso", "Lechuga", "Tomate", "Jamón", "Huevo", "Beicon"]
+};
+
+let cart = [];
+
+// Variables para el Wizard de Salsas
+let wizardState = {
+    productId: null,
+    maxSauces: 2,
+    totalItemsCount: 1,
+    currentItemStep: 1,
+    accumulatedSauces: []
+};
+
+// Variables para el Wizard de Ingredientes de Hamburguesas
+let burgerWizardState = {
+    productId: null,
+    totalItemsCount: 1,
+    currentItemStep: 1,
+    accumulatedIngredients: []
+};
+
+// Formateador de moneda (ARS)
 const formatCurrency = (amount) => {
     return new Intl.NumberFormat('es-AR', {
         style: 'currency',
@@ -87,35 +155,38 @@ const formatCurrency = (amount) => {
 // 1. FILTRADO DE CATEGORÍAS
 // ==========================================
 function filterCategory(category, buttonElement) {
-    // Actualizar clase activa en los botones
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     if (buttonElement) buttonElement.classList.add('active');
 
-    // Mostrar/ocultar secciones
     const sections = document.querySelectorAll('.menu-section');
     sections.forEach(section => {
         const sectionCategory = section.getAttribute('data-category-section');
-        if (category === 'todos' || sectionCategory === category) {
-            section.style.display = 'block';
-        } else {
-            section.style.display = 'none';
-        }
+        section.style.display = (category === 'todos' || sectionCategory === category) ? 'block' : 'none';
     });
 }
 
 // ==========================================
 // 2. GESTIÓN DEL CARRITO / COMANDA
 // ==========================================
-function addToCart(productId, sauces = []) {
+function addToCart(productId, detailsArray = []) {
     const product = PRODUCTS[productId];
     if (!product) return;
 
-    // Buscar si ya existe la combinación exactamente igual (mismo producto y mismas salsas)
-    const sauceKey = [...sauces].sort().join(',');
+    let detailsFormattedString = "";
+    if (Array.isArray(detailsArray) && detailsArray.length > 0) {
+        if (Array.isArray(detailsArray[0])) {
+            detailsFormattedString = detailsArray.map((item, idx) => {
+                const text = item.length > 0 ? item.join(', ') : 'Sin ingredientes adicionales';
+                return `[Unidad ${idx + 1}: ${text}]`;
+            }).join(' | ');
+        } else {
+            detailsFormattedString = detailsArray.join(', ');
+        }
+    }
+
     const existingIndex = cart.findIndex(item => {
-        const itemSauceKey = [...(item.sauces || [])].sort().join(',');
-        return item.id === productId && itemSauceKey === sauceKey;
+        return item.id === productId && item.saucesText === detailsFormattedString;
     });
 
     if (existingIndex > -1) {
@@ -126,7 +197,7 @@ function addToCart(productId, sauces = []) {
             name: product.name,
             price: product.price,
             quantity: 1,
-            sauces: sauces
+            saucesText: detailsFormattedString
         });
     }
 
@@ -150,18 +221,15 @@ function removeFromCart(index) {
     updateUI();
 }
 
-// Actualiza las barras de subtotal, comanda y vistas dentro del modal
 function updateUI() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    // Barra fija inferior
     const barCount = document.getElementById('barCount');
     const barTotal = document.getElementById('barTotal');
     if (barCount) barCount.innerText = totalItems;
     if (barTotal) barTotal.innerText = formatCurrency(subtotal);
 
-    // Modal de comanda
     renderComandaItems();
 
     const isDelivery = document.querySelector('input[name="deliveryType"]:checked')?.value === 'delivery';
@@ -185,17 +253,16 @@ function renderComandaItems() {
 
     let html = '<div class="cart-items-wrapper">';
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        const saucesText = item.sauces && item.sauces.length > 0 
-            ? `<div style="font-size: 0.85em; color: #e67e22;">🥣 Salsas: ${item.sauces.join(', ')}</div>` 
+        const detailsText = item.saucesText 
+            ? `<div style="font-size: 0.85em; color: #e67e22; margin-top:2px;">🥣 Detalle: ${item.saucesText}</div>` 
             : '';
 
         html += `
             <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
                 <div style="flex: 1;">
                     <strong style="display: block;">${item.name}</strong>
-                    ${saucesText}
-                    <span style="color: #666;">${formatCurrency(item.price)} c/u</span>
+                    ${detailsText}
+                    <span style="color: #666; font-size:0.9em;">${formatCurrency(item.price)} c/u</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <button type="button" style="padding: 2px 8px; cursor: pointer;" onclick="updateQuantity(${index}, -1)">-</button>
@@ -212,57 +279,170 @@ function renderComandaItems() {
 }
 
 // ==========================================
-// 3. SELECCIÓN DE SALSAS (MODAL SALSAS)
+// 3. WIZARD PASO A PASO DE SALSAS
 // ==========================================
-function openSauceModal(productId, maxSauces = 2) {
-    pendingSauceProductId = productId;
-    maxAllowedSauces = maxSauces;
+function openSauceWizard(productId, maxSauces = 2, totalItemsCount = 1) {
+    wizardState = {
+        productId: Number(productId),
+        maxSauces: Number(maxSauces),
+        totalItemsCount: Number(totalItemsCount),
+        currentItemStep: 1,
+        accumulatedSauces: []
+    };
 
     const maxSaucesSpan = document.getElementById('maxSaucesCount');
-    if (maxSaucesSpan) maxSaucesSpan.innerText = maxAllowedSauces;
+    if (maxSaucesSpan) maxSaucesSpan.innerText = wizardState.maxSauces;
 
-    // Desmarcar y habilitar todos los checkboxes
-    const checkboxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]');
-    checkboxes.forEach(cb => {
-        cb.checked = false;
-        cb.disabled = false;
-    });
+    updateWizardStepUI();
 
     const modal = document.getElementById('sauceModal');
     if (modal) modal.style.display = 'flex';
 }
 
+function updateWizardStepUI() {
+    const stepIndicator = document.getElementById('stepIndicator');
+    const confirmBtn = document.getElementById('confirmSauceBtn');
+
+    if (stepIndicator) {
+        if (wizardState.totalItemsCount > 1) {
+            stepIndicator.innerText = `Pancho ${wizardState.currentItemStep} de ${wizardState.totalItemsCount}`;
+            stepIndicator.style.display = 'block';
+        } else {
+            stepIndicator.style.display = 'none';
+        }
+    }
+
+    if (confirmBtn) {
+        if (wizardState.currentItemStep < wizardState.totalItemsCount) {
+            confirmBtn.innerText = 'Siguiente Pancho ➔';
+        } else {
+            confirmBtn.innerText = '✔ Agregar al Carrito';
+        }
+    }
+
+    const checkboxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        cb.checked = false;
+        cb.disabled = false;
+    });
+}
+
 function closeSauceModal() {
-    pendingSauceProductId = null;
     const modal = document.getElementById('sauceModal');
     if (modal) modal.style.display = 'none';
 }
 
 function checkSauceLimit() {
     const checkboxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]');
-    const checkedCount = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]:checked').length;
+    const checkedBoxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]:checked');
 
-    // Si llegó al límite, deshabilitar los no seleccionados
     checkboxes.forEach(cb => {
         if (!cb.checked) {
-            cb.disabled = checkedCount >= maxAllowedSauces;
+            cb.disabled = checkedBoxes.length >= wizardState.maxSauces;
         }
     });
 }
 
-function confirmSauceSelection() {
+function confirmSauceStep() {
     const selectedBoxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]:checked');
-    const selectedSauces = Array.from(selectedBoxes).map(cb => cb.value);
+    const currentStepSauces = Array.from(selectedBoxes).map(cb => cb.value);
 
-    if (pendingSauceProductId) {
-        addToCart(pendingSauceProductId, selectedSauces);
+    wizardState.accumulatedSauces.push(currentStepSauces);
+
+    if (wizardState.currentItemStep < wizardState.totalItemsCount) {
+        wizardState.currentItemStep += 1;
+        updateWizardStepUI();
+    } else {
+        addToCart(wizardState.productId, wizardState.accumulatedSauces);
+        closeSauceModal();
+    }
+}
+
+/// ==========================================
+// 4. WIZARD DE INGREDIENTES PARA BURGERS
+// ==========================================
+function openBurgerWizard(productId, totalItemsCount = 1) {
+    const modal = document.getElementById('burgerIngredientsModal');
+    if (!modal) {
+        console.error("Error: No se encontró el modal con id 'burgerIngredientsModal' en el HTML.");
+        alert("Ocurrió un error al abrir el menú de la hamburguesa. Revisá que el modal esté en el HTML.");
+        return;
     }
 
-    closeSauceModal();
+    burgerWizardState = {
+        productId: Number(productId),
+        totalItemsCount: Number(totalItemsCount),
+        currentItemStep: 1,
+        accumulatedIngredients: []
+    };
+
+    updateBurgerWizardStepUI();
+
+    // Forzamos el display a flex para mostrar el modal
+    modal.style.display = 'flex';
+}
+
+function updateBurgerWizardStepUI() {
+    const stepIndicator = document.getElementById('burgerStepIndicator');
+    const confirmBtn = document.getElementById('confirmBurgerBtn');
+    const optionsList = document.getElementById('burgerIngredientsOptionsList');
+
+    if (stepIndicator) {
+        if (burgerWizardState.totalItemsCount > 1) {
+            stepIndicator.innerText = `Hamburguesa ${burgerWizardState.currentItemStep} de ${burgerWizardState.totalItemsCount}`;
+            stepIndicator.style.display = 'block';
+        } else {
+            stepIndicator.style.display = 'none';
+        }
+    }
+
+    if (confirmBtn) {
+        if (burgerWizardState.currentItemStep < burgerWizardState.totalItemsCount) {
+            confirmBtn.innerText = 'Siguiente Hamburguesa ➔';
+        } else {
+            confirmBtn.innerText = '✔ Agregar al Carrito';
+        }
+    }
+
+    if (optionsList) {
+        const baseIngredients = BURGER_BASE_INGREDIENTS[burgerWizardState.productId] || [];
+        const checkboxes = optionsList.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(cb => {
+            cb.checked = baseIngredients.includes(cb.value);
+        });
+    }
+}
+
+function closeBurgerModal() {
+    const modal = document.getElementById('burgerIngredientsModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function confirmBurgerStep() {
+    const optionsList = document.getElementById('burgerIngredientsOptionsList');
+    let currentStepIngredients = [];
+
+    if (optionsList) {
+        const selectedBoxes = optionsList.querySelectorAll('input[type="checkbox"]:checked');
+        currentStepIngredients = Array.from(selectedBoxes).map(cb => cb.value);
+    }
+
+    burgerWizardState.accumulatedIngredients.push(currentStepIngredients);
+
+    if (burgerWizardState.currentItemStep < burgerWizardState.totalItemsCount) {
+        burgerWizardState.currentItemStep += 1;
+        updateBurgerWizardStepUI();
+    } else {
+        addToCart(burgerWizardState.productId, burgerWizardState.accumulatedIngredients);
+        closeBurgerModal();
+    }
 }
 
 // ==========================================
-// 4. MODAL COMANDA Y LÓGICA DELIVERY/RETIRO
+// 5. MODAL COMANDA Y DELIVERY
 // ==========================================
 function toggleModal(show) {
     const modal = document.getElementById('orderModal');
@@ -277,49 +457,46 @@ function updateDeliveryUI() {
     const addressSection = document.getElementById('addressSection');
     const deliveryRow = document.getElementById('deliveryRow');
 
-    if (addressSection) {
-        addressSection.style.display = isDelivery ? 'block' : 'none';
-    }
-    if (deliveryRow) {
-        deliveryRow.style.display = isDelivery ? 'flex' : 'none';
-    }
+    if (addressSection) addressSection.style.display = isDelivery ? 'block' : 'none';
+    if (deliveryRow) deliveryRow.style.display = isDelivery ? 'flex' : 'none';
 
     updateUI();
 }
 
 // ==========================================
-// 5. ENVIAR PEDIDO POR WHATSAPP
+// 6. ENVIAR PEDIDO POR WHATSAPP
 // ==========================================
 function sendWhatsAppOrder() {
     if (cart.length === 0) {
-        alert("Tu comanda está vacía. ¡Agrega algún producto antes de enviar!");
+        alert("Tu comanda está vacía. ¡Agregá algún producto antes de enviar!");
         return;
     }
 
-    const clientName = document.getElementById('clientName')?.value.trim();
+    const clientNameInput = document.getElementById('clientName');
+    const clientName = clientNameInput?.value.trim();
     if (!clientName) {
-        alert("Por favor, ingresa tu nombre para saber a quién va dirigido el pedido.");
-        document.getElementById('clientName')?.focus();
+        alert("Por favor, ingresá tu nombre para saber a quién va dirigido el pedido.");
+        clientNameInput?.focus();
         return;
     }
 
     const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value;
     const isDelivery = deliveryType === 'delivery';
-    const addressInput = document.getElementById('addressInput')?.value.trim();
+    const addressInput = document.getElementById('addressInput');
+    const addressValue = addressInput?.value.trim();
 
-    if (isDelivery && !addressInput) {
-        alert("Por favor, ingresa tu dirección para realizar el envío.");
-        document.getElementById('addressInput')?.focus();
+    if (isDelivery && !addressValue) {
+        alert("Por favor, ingresá tu dirección para realizar el envío.");
+        addressInput?.focus();
         return;
     }
 
-    // Armado del mensaje
     let message = `🔥 *NUEVO PEDIDO - META PANCHOS* 🔥\n`;
     message += `👤 *Cliente:* ${clientName}\n`;
     message += `📍 *Modalidad:* ${isDelivery ? '🛵 Delivery' : '🛍️ Retiro en local'}\n`;
     
     if (isDelivery) {
-        message += `🏠 *Dirección:* ${addressInput}\n`;
+        message += `🏠 *Dirección:* ${addressValue}\n`;
     }
     
     message += `-----------------------------------\n`;
@@ -330,8 +507,8 @@ function sendWhatsAppOrder() {
         const itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
         message += `• ${item.quantity}x ${item.name}\n`;
-        if (item.sauces && item.sauces.length > 0) {
-            message += `   └ 🥣 Salsas: ${item.sauces.join(', ')}\n`;
+        if (item.saucesText) {
+            message += `   └ 🥣 Ingredientes/Salsas: ${item.saucesText}\n`;
         }
         message += `   └ Subtotal: ${formatCurrency(itemTotal)}\n\n`;
     });
@@ -347,14 +524,13 @@ function sendWhatsAppOrder() {
     message += `⭐ *TOTAL:* ${formatCurrency(total)}\n\n`;
     message += `¡Muchas gracias! Quedo a la espera de la confirmación.`;
 
-    // Abrir la API de WhatsApp
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${encodedMessage}`;
     
     window.open(whatsappURL, '_blank');
 }
 
-// Inicialización de la vista
+// Inicialización de la app
 document.addEventListener('DOMContentLoaded', () => {
     updateUI();
 });
