@@ -37,7 +37,7 @@
                     <h3>4 Panchos con Lluvia de Papas</h3>
                     <p>4 súper panchos tradicionales con lluvia de papas pay crocantes.</p>
                     <div class="price">$7.500</div>
-                    <button type="button" class="add-btn" onclick="addToCart(1)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(1, 0, 4)">➕ Agregar</button>
                 </div>
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
@@ -49,7 +49,7 @@
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>Súper Pancho Doble Poncho</h3>
-                    <p>Doble salchicha, dos salsas a elección y poncho de cheddar/papas.</p>
+                    <p>Doble salchicha, dos salsas a elección y poncho de muzzarella y jamon cocido/papas.</p>
                     <div class="price">$4.500</div>
                     <button type="button" class="add-btn" onclick="openSauceWizard(3, 2, 1)">➕ Agregar</button>
                 </div>
@@ -58,7 +58,7 @@
                     <h3>Súper Pancho con Lluvia de Papas</h3>
                     <p>Súper pancho con lluvia de papas pay.</p>
                     <div class="price">$2.000</div>
-                    <button type="button" class="add-btn" onclick="addToCart(101)">➕ Agregar</button>
+                    <button type="button" class="add-btn" onclick="openSauceWizard(101, 0, 1)">➕ Agregar</button>
                 </div>
                 <div class="card">
                     <h3>Súper Pancho con 2 Salsas y Papas</h3>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="card">
                     <h3>Pancho 50cm Doble Salchicha y Poncho</h3>
-                    <p>Pancho de 50cm con doble salchicha y poncho de cheddar.</p>
+                    <p>Pancho de 50cm con doble salchicha y poncho con muzzarella y jamon cocido.</p>
                     <div class="price">$10.000</div>
                     <button type="button" class="add-btn" onclick="addToCart(104)">➕ Agregar</button>
                 </div>
@@ -433,27 +433,7 @@
                     <div class="price">$3.500</div>
                     <button type="button" class="add-btn" onclick="addToCart(18)">➕ Agregar</button>
                 </div>
-                <div class="card promo-card">
-                    <span class="badge">PROMO</span>
-                    <h3>1 Pancho 2 Salsas/Papas + Lata Coca</h3>
-                    <p>1 Pancho con 2 salsas, papas pay y 1 lata de Coca-Cola.</p>
-                    <div class="price">$4.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceWizard(19, 2, 1)">➕ Agregar</button>
-                </div>
-                <div class="card promo-card">
-                    <span class="badge">PROMO</span>
-                    <h3>2 Panchos con 2 Salsas + 2 Latas</h3>
-                    <p>2 Panchos completos con 2 salsas por pancho y 2 latas de gaseosa.</p>
-                    <div class="price">$8.000</div>
-                    <button type="button" class="add-btn" onclick="openSauceWizard(20, 2, 2)">➕ Agregar</button>
-                </div>
-                <div class="card promo-card">
-                    <span class="badge">PROMO</span>
-                    <h3>2 Meta Smash Simple + Papas + 2 Latas</h3>
-                    <p>2 Hamburguesas simples con papas y 2 latas de gaseosa.</p>
-                    <div class="price">$20.000</div>
-                    <button type="button" class="add-btn" onclick="openBurgerWizard(21, 2)">➕ Agregar</button>
-                </div>
+               
                 <div class="card promo-card">
                     <span class="badge">PROMO</span>
                     <h3>3 Pizzas Muzzarella + 1 Pepsi</h3>
@@ -591,7 +571,7 @@
 
             <div class="total-summary">
                 <p>Subtotal: <span id="subtotalText">$0</span></p>
-                <p id="deliveryRow" class="delivery-row">Envío: <span>$800</span></p>
+                <p id="deliveryRow" class="delivery-row">Envío: <span>Consultar Envio</span></p>
                 <div class="grand-total">TOTAL: <span id="totalText">$0</span></div>
             </div>
 

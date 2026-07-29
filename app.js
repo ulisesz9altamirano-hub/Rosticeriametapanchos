@@ -2,7 +2,8 @@
 // CONFIGURACIÓN Y ESTADO DE LA APLICACIÓN
 // ==========================================
 const PHONE_NUMBER = "2617111500"; // Número de WhatsApp (con código de país)
-const DELIVERY_COST = 800;
+const DELIVERY_COST_TEXT = "Consultar Envió"; // Texto para el costo de envío
+const DELIVERY_COST = 0; // Valor numérico para cálculos internos
 
 // Base de datos de productos
 const PRODUCTS = {
@@ -77,7 +78,7 @@ const PRODUCTS = {
     120: { id: 120, name: "Agregado: Poncho", price: 1000 },
     121: { id: 121, name: "Agregado: Cheddar Extra", price: 3000 },
 
-    // Especiales
+    // Especiales / Combos
     18: { id: 18, name: "1 Pancho c/ Papas + Lata Coca", price: 3500 },
     19: { id: 19, name: "1 Pancho 2 Salsas/Papas + Lata Coca", price: 4000 },
     20: { id: 20, name: "2 Panchos con 2 Salsas + 2 Latas", price: 8000 },
@@ -87,54 +88,46 @@ const PRODUCTS = {
     24: { id: 24, name: "1 Lomopizza con Papas + Coca", price: 38500 }
 };
 
-// Map de ingredientes base según cada producto / promo
+// Clasificación de aderezos y salsas
+const BASIC_ADEREZOS = ["Mayonesa", "Kétchup", "Mostaza", "Salsa Golf"];
+const SPECIAL_SAUCES = ["Mayonesa Ajo", "Barbacoa", "Queso Cheddar", "Queso Roquefort", "Cebolla caramelizada", "Palta", "4 Quesos", "Criolla", "Huevo picado"];
+
+// Map de ingredientes base según cada producto / promo de Hamburguesas
 const BURGER_BASE_INGREDIENTS = {
-    // META BEICON (Simple, Doble, Triple)
     50: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     51: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     52: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
-
-    // META BBQ (Simple, Doble, Triple)
     53: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
     54: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
     55: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
-
-    // META SMASH (Simple, Doble, Triple)
     56: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
     57: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
     58: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
-
-    // MONSTER SMASH (Simple, Doble, Triple)
     59: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     60: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     61: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
-
-    // PROMOS SMASH (2 Unidades por Promo)
-    4: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"], // Meta Smash Simple
-    5: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Simple
-    6: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Doble
-    7: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Monster Doble
-    8: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Meta Beicon Triple
-    9: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"], // Monster Triple
-    21: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"], // 2 Meta Smash + Papas + 2 Latas
-
-    // Hamburguesas Tradicionales
+    4: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
+    5: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    6: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    7: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    8: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    9: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
+    21: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
     106: ["Jamón", "Cheddar / Queso", "Huevo", "Lechuga", "Tomate"],
     107: ["Cheddar / Queso", "Lechuga", "Tomate", "Jamón", "Huevo", "Beicon"]
 };
 
 let cart = [];
 
-// Variables para el Wizard de Salsas
+// Estado para Wizard de Salsas
 let wizardState = {
     productId: null,
-    maxSauces: 2,
     totalItemsCount: 1,
     currentItemStep: 1,
     accumulatedSauces: []
 };
 
-// Variables para el Wizard de Ingredientes de Hamburguesas
+// Estado para Wizard de Hamburguesas
 let burgerWizardState = {
     productId: null,
     totalItemsCount: 1,
@@ -142,8 +135,9 @@ let burgerWizardState = {
     accumulatedIngredients: []
 };
 
-// Formateador de moneda (ARS)
+// Formateador de moneda (ARS) adaptable a textos
 const formatCurrency = (amount) => {
+    if (typeof amount === 'string') return amount;
     return new Intl.NumberFormat('es-AR', {
         style: 'currency',
         currency: 'ARS',
@@ -177,7 +171,7 @@ function addToCart(productId, detailsArray = []) {
     if (Array.isArray(detailsArray) && detailsArray.length > 0) {
         if (Array.isArray(detailsArray[0])) {
             detailsFormattedString = detailsArray.map((item, idx) => {
-                const text = item.length > 0 ? item.join(', ') : 'Sin ingredientes adicionales';
+                const text = item.length > 0 ? item.join(', ') : 'Sin aderezos/salsas';
                 return `[Unidad ${idx + 1}: ${text}]`;
             }).join(' | ');
         } else {
@@ -233,13 +227,20 @@ function updateUI() {
     renderComandaItems();
 
     const isDelivery = document.querySelector('input[name="deliveryType"]:checked')?.value === 'delivery';
-    const deliveryCost = isDelivery ? DELIVERY_COST : 0;
-    const grandTotal = subtotal + deliveryCost;
-
     const subtotalText = document.getElementById('subtotalText');
     const totalText = document.getElementById('totalText');
+    const deliveryCostTextElement = document.getElementById('deliveryCostText');
+
     if (subtotalText) subtotalText.innerText = formatCurrency(subtotal);
-    if (totalText) totalText.innerText = formatCurrency(grandTotal);
+    if (deliveryCostTextElement) deliveryCostTextElement.innerText = DELIVERY_COST_TEXT;
+
+    if (totalText) {
+        if (isDelivery) {
+            totalText.innerText = `${formatCurrency(subtotal)} + envío`;
+        } else {
+            totalText.innerText = formatCurrency(subtotal);
+        }
+    }
 }
 
 function renderComandaItems() {
@@ -279,19 +280,20 @@ function renderComandaItems() {
 }
 
 // ==========================================
-// 3. WIZARD PASO A PASO DE SALSAS
+// 3. WIZARD PASO A PASO DE SALSAS Y ADEREZOS
 // ==========================================
-function openSauceWizard(productId, maxSauces = 2, totalItemsCount = 1) {
+function openSauceWizard(productId, unusedParam = null, totalItemsCount = 1) {
+    let actualCount = totalItemsCount;
+    if (typeof unusedParam === 'number' && arguments.length === 2) {
+        actualCount = unusedParam;
+    }
+
     wizardState = {
         productId: Number(productId),
-        maxSauces: Number(maxSauces),
-        totalItemsCount: Number(totalItemsCount),
+        totalItemsCount: Number(actualCount),
         currentItemStep: 1,
         accumulatedSauces: []
     };
-
-    const maxSaucesSpan = document.getElementById('maxSaucesCount');
-    if (maxSaucesSpan) maxSaucesSpan.innerText = wizardState.maxSauces;
 
     updateWizardStepUI();
 
@@ -302,6 +304,17 @@ function openSauceWizard(productId, maxSauces = 2, totalItemsCount = 1) {
 function updateWizardStepUI() {
     const stepIndicator = document.getElementById('stepIndicator');
     const confirmBtn = document.getElementById('confirmSauceBtn');
+    const modalTitle = document.querySelector('#sauceModal .modal-header h3');
+    const optionsList = document.getElementById('saucesOptionsList');
+    
+    const productObj = PRODUCTS[wizardState.productId];
+    const isBasicOnly = (wizardState.productId === 1 || wizardState.productId === 101);
+
+    if (modalTitle && productObj) {
+        modalTitle.innerText = isBasicOnly 
+            ? `Elegí tus aderezos para ${productObj.name} 🌭`
+            : `Personalizá aderezos y hasta 2 salsas para ${productObj.name} 🥣`;
+    }
 
     if (stepIndicator) {
         if (wizardState.totalItemsCount > 1) {
@@ -320,27 +333,49 @@ function updateWizardStepUI() {
         }
     }
 
-    const checkboxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]');
-    checkboxes.forEach(cb => {
-        cb.checked = false;
-        cb.disabled = false;
-    });
+    if (optionsList) {
+        optionsList.innerHTML = '';
+
+        // Renderizar Aderezos Básicos
+        BASIC_ADEREZOS.forEach(aderezo => {
+            const label = document.createElement('label');
+            label.className = 'sauce-option';
+            label.innerHTML = `
+                <input type="checkbox" value="${aderezo}" data-type="aderezo" checked> ${aderezo}
+            `;
+            optionsList.appendChild(label);
+        });
+
+        // Renderizar Salsas Especiales
+        if (!isBasicOnly) {
+            const separator = document.createElement('div');
+            separator.style.cssText = "grid-column: 1 / -1; margin: 10px 0 5px 0; font-weight: bold; color: #d35400;";
+            separator.innerText = "Salsas especiales (máximo 2):";
+            optionsList.appendChild(separator);
+
+            SPECIAL_SAUCES.forEach(salsa => {
+                const label = document.createElement('label');
+                label.className = 'sauce-option';
+                label.innerHTML = `
+                    <input type="checkbox" value="${salsa}" data-type="salsa" onchange="checkSauceLimit(this)"> ${salsa}
+                `;
+                optionsList.appendChild(label);
+            });
+        }
+    }
+}
+
+function checkSauceLimit(changedCheckbox) {
+    const selectedSauces = document.querySelectorAll('#saucesOptionsList input[data-type="salsa"]:checked');
+    if (selectedSauces.length > 2) {
+        changedCheckbox.checked = false;
+        alert("Podés elegir un máximo de 2 salsas especiales por pancho.");
+    }
 }
 
 function closeSauceModal() {
     const modal = document.getElementById('sauceModal');
     if (modal) modal.style.display = 'none';
-}
-
-function checkSauceLimit() {
-    const checkboxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]');
-    const checkedBoxes = document.querySelectorAll('#saucesOptionsList input[type="checkbox"]:checked');
-
-    checkboxes.forEach(cb => {
-        if (!cb.checked) {
-            cb.disabled = checkedBoxes.length >= wizardState.maxSauces;
-        }
-    });
 }
 
 function confirmSauceStep() {
@@ -361,23 +396,21 @@ function confirmSauceStep() {
 // ==========================================
 // 4. WIZARD DE INGREDIENTES PARA BURGERS (DINÁMICO)
 // ==========================================
-
-// Mapeo auxiliar para conocer la composición exacta de hamburguesas en las promos de 2 unidades
 const BURGER_PROMO_COMPOSITION = {
-    4: [56, 56], // 2 Meta Smash Simple
-    5: [50, 50], // 2 Meta Beicon Simple
-    6: [51, 51], // 2 Meta Beicon Doble
-    7: [60, 60], // 2 Monster Smash Doble
-    8: [52, 52], // 2 Meta Beicon Triple
-    9: [61, 61], // 2 Monster Smash Triple
-    21: [56, 56] // 2 Meta Smash Simple + Papas + 2 Latas
+    4: [56, 56],
+    5: [50, 50],
+    6: [51, 51],
+    7: [60, 60],
+    8: [52, 52],
+    9: [61, 61],
+    21: [56, 56]
 };
 
 function openBurgerWizard(productId, totalItemsCount = 1) {
     const modal = document.getElementById('burgerIngredientsModal');
     if (!modal) {
         console.error("Error: No se encontró el modal con id 'burgerIngredientsModal' en el HTML.");
-        alert("Ocurrió un error al abrir el menú de la hamburguesa. Revisá que el modal esté en el HTML.");
+        alert("Ocurrió un error al abrir el menú de la hamburguesa.");
         return;
     }
 
@@ -389,8 +422,6 @@ function openBurgerWizard(productId, totalItemsCount = 1) {
     };
 
     updateBurgerWizardStepUI();
-
-    // Mostrar el modal
     modal.style.display = 'flex';
 }
 
@@ -400,9 +431,7 @@ function updateBurgerWizardStepUI() {
     const optionsList = document.getElementById('burgerIngredientsOptionsList');
     const modalTitle = document.querySelector('#burgerIngredientsModal .modal-header h3');
 
-    // 1. Determinar de qué hamburguesa específica debemos cargar ingredientes en este paso
     let currentBurgerId = burgerWizardState.productId;
-    
     if (burgerWizardState.totalItemsCount > 1 && BURGER_PROMO_COMPOSITION[burgerWizardState.productId]) {
         const promoList = BURGER_PROMO_COMPOSITION[burgerWizardState.productId];
         currentBurgerId = promoList[burgerWizardState.currentItemStep - 1] || burgerWizardState.productId;
@@ -410,12 +439,10 @@ function updateBurgerWizardStepUI() {
 
     const currentProductObj = PRODUCTS[currentBurgerId] || PRODUCTS[burgerWizardState.productId];
 
-    // 2. Actualizar Título
     if (modalTitle && currentProductObj) {
         modalTitle.innerText = `Personalizá tu ${currentProductObj.name} 🍔`;
     }
 
-    // 3. Actualizar Indicador de Pasos
     if (stepIndicator) {
         if (burgerWizardState.totalItemsCount > 1) {
             stepIndicator.innerText = `Hamburguesa ${burgerWizardState.currentItemStep} de ${burgerWizardState.totalItemsCount}`;
@@ -425,7 +452,6 @@ function updateBurgerWizardStepUI() {
         }
     }
 
-    // 4. Actualizar Botón
     if (confirmBtn) {
         if (burgerWizardState.currentItemStep < burgerWizardState.totalItemsCount) {
             confirmBtn.innerText = 'Siguiente Hamburguesa ➔';
@@ -434,10 +460,8 @@ function updateBurgerWizardStepUI() {
         }
     }
 
-    // 5. Renderizar dinámicamente los Checkboxes
     if (optionsList) {
-        optionsList.innerHTML = ''; // Limpiamos opciones previas
-        
+        optionsList.innerHTML = '';
         const baseIngredients = BURGER_BASE_INGREDIENTS[currentBurgerId] || [];
 
         if (baseIngredients.length === 0) {
@@ -458,9 +482,7 @@ function updateBurgerWizardStepUI() {
 
 function closeBurgerModal() {
     const modal = document.getElementById('burgerIngredientsModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
+    if (modal) modal.style.display = 'none';
 }
 
 function confirmBurgerStep() {
@@ -550,20 +572,21 @@ function sendWhatsAppOrder() {
         subtotal += itemTotal;
         message += `• ${item.quantity}x ${item.name}\n`;
         if (item.saucesText) {
-            message += `   └ 🥣 Ingredientes/Salsas: ${item.saucesText}\n`;
+            message += `   └ 🥣 Detalles: ${item.saucesText}\n`;
         }
         message += `   └ Subtotal: ${formatCurrency(itemTotal)}\n\n`;
     });
 
-    const deliveryCost = isDelivery ? DELIVERY_COST : 0;
-    const total = subtotal + deliveryCost;
-
     message += `-----------------------------------\n`;
     message += `💵 *Subtotal:* ${formatCurrency(subtotal)}\n`;
+    
     if (isDelivery) {
-        message += `🛵 *Envío:* ${formatCurrency(DELIVERY_COST)}\n`;
+        message += `🛵 *Envío:* ${DELIVERY_COST_TEXT}\n`;
+        message += `⭐ *TOTAL:* ${formatCurrency(subtotal)} (+ envío a consultar)\n\n`;
+    } else {
+        message += `⭐ *TOTAL:* ${formatCurrency(subtotal)}\n\n`;
     }
-    message += `⭐ *TOTAL:* ${formatCurrency(total)}\n\n`;
+    
     message += `¡Muchas gracias! Quedo a la espera de la confirmación.`;
 
     const encodedMessage = encodeURIComponent(message);
