@@ -47,6 +47,7 @@ const PRODUCTS = {
     // Burgers Carta
     106: { id: 106, name: "Súper Hamburguesa", price: 9500 },
     107: { id: 107, name: "Big Mamma", price: 15000 },
+    122: { id: 122, name: "Super Hamburguesa + Papas", price: 12500 },
 
     // Lomos Carta y Promos
     108: { id: 108, name: "Lomo de 30 cm", price: 13000 },
@@ -63,6 +64,8 @@ const PRODUCTS = {
     113: { id: 113, name: "Pizza Doble Muzzarella", price: 8000 },
     114: { id: 114, name: "Pizza Especial", price: 8000 },
     115: { id: 115, name: "Pizza Fugazza", price: 8000 },
+    123: { id: 123, name: "Hamburpizza", price: 24000 },
+    124: { id: 124, name: "Hamburpizza + Papas", price: 28000 },
     14: { id: 14, name: "2 Pizzas Muzzarellas", price: 12000 },
     15: { id: 15, name: "3 Pizzas Muzzarellas", price: 18000 },
     16: { id: 16, name: "2 Pizzas Especiales", price: 15000 },
@@ -79,10 +82,6 @@ const PRODUCTS = {
     121: { id: 121, name: "Agregado: Cheddar Extra", price: 3000 },
 
     // Especiales / Combos
-    18: { id: 18, name: "1 Pancho c/ Papas + Lata Coca", price: 3500 },
-    19: { id: 19, name: "1 Pancho 2 Salsas/Papas + Lata Coca", price: 4000 },
-    20: { id: 20, name: "2 Panchos con 2 Salsas + 2 Latas", price: 8000 },
-    21: { id: 21, name: "2 Meta Smash Simple + Papas + 2 Latas", price: 20000 },
     22: { id: 22, name: "3 Pizzas Muzzarella + 1 Pepsi", price: 21000 },
     23: { id: 23, name: "Lomopizza Especial con Papas", price: 34000 },
     24: { id: 24, name: "1 Lomopizza con Papas + Coca", price: 38500 }
@@ -100,9 +99,9 @@ const BURGER_BASE_INGREDIENTS = {
     53: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
     54: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
     55: ["Barbacoa", "Lechuga", "Tomate", "Pan de Papa"],
-    56: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
-    57: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
-    58: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
+    56: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Queso muzzarella", "Huevo", "Pan de Papa"],
+    57: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Queso muzzarella", "Huevo", "Pan de Papa"],
+    58: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Queso muzzarella", "Huevo", "Pan de Papa"],
     59: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     60: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     61: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
@@ -113,8 +112,9 @@ const BURGER_BASE_INGREDIENTS = {
     8: ["Cheddar / Queso", "Barbacoa", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     9: ["Cheddar / Queso", "Barbacoa", "Palta", "Lechuga", "Tomate", "Beicon", "Cebolla Caramelizada", "Pan de Papa"],
     21: ["Barbacoa", "Lechuga", "Tomate", "Jamón", "Cheddar / Queso", "Huevo", "Pan de Papa"],
-    106: ["Jamón", "Cheddar / Queso", "Huevo", "Lechuga", "Tomate"],
-    107: ["Cheddar / Queso", "Lechuga", "Tomate", "Jamón", "Huevo", "Beicon"]
+    106: ["Jamón", "Queso muzzarella", "Huevo", "Lechuga", "Tomate"],
+    107: ["Cheddar / Queso", "Lechuga", "Tomate", "Jamón", "Huevo", "Beicon"],
+    122: ["Doble carne", "Lechuga", "Tomate", "Jamón", "Queso muzzarella", "Huevo", "Beicon"],
 };
 
 let cart = [];
